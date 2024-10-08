@@ -1,7 +1,13 @@
-import React from "react";
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";
 
 const Events = ({ selectedDate }) => {
+  const router = useRouter();
+
+  const handleAddEvent = () => {
+    router.push(`/add-event?date=${format(selectedDate, "yyyy-MM-dd")}`);
+  };
+
   return (
     <aside className="grid content-between">
       <div>
@@ -12,7 +18,10 @@ const Events = ({ selectedDate }) => {
           {format(selectedDate, "MMMM d")}
         </h2>
       </div>
-      <button className="btn border-blue-100 bg-blue-100 hover:bg-blue-400 hover:text-neutral-100">
+      <button
+        className="btn border-blue-100 bg-blue-100 hover:bg-blue-400 hover:text-neutral-100"
+        onClick={handleAddEvent}
+      >
         Add Event
       </button>
     </aside>

@@ -12,13 +12,12 @@ import {
   isToday,
   parse,
   startOfMonth,
-  startOfToday,
   startOfWeek,
 } from "date-fns";
 
-const Calendar = () => {
+const Calendar = ({ today, selectedDate, handleDateChange }) => {
   // Get the current data
-  const today = startOfToday();
+  //   const today = startOfToday();
   // Get the current month
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMMM yyyy"));
   // Get the first day of the month
@@ -42,7 +41,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className="w-[400px] mx-auto rounded-md border-[1px] border-black h-fit">
+    <section className="w-[400px] mx-auto rounded-md border-[1px] border-black h-fit">
       {/* Month, Prev, Next */}
       <div className="flex items-center border-b-[1px] p-4">
         <h2 className="font-semibold text-gray-900 flex-auto">
@@ -86,13 +85,17 @@ const Calendar = () => {
           >
             <button
               type="button"
-              //   onClick={() => handleDateChange(day)}
+              onClick={() => handleDateChange(day)}
               className={`aspect-square w-8 my-1 rounded-full hover:bg-gray-200 
                       ${
                         isSameMonth(day, firstDayCurrentMonth) &&
                         "font-semibold text-gray-600"
                       }
                       ${isToday(day) && "text-red-500"} 
+                      ${
+                        isEqual(day, selectedDate) &&
+                        "bg-gray-700 text-white hover:bg-gray-700"
+                      }
                       `}
             >
               <time dateTime={format(day, "yyyy-MM-dd")}>
@@ -102,7 +105,7 @@ const Calendar = () => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

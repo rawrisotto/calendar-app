@@ -29,7 +29,7 @@ const EventForm = ({ operation, selectedDate }) => {
       {/* Date */}
       <div className="relative">
         <input
-          className="w-96 h-12 resize-none border-[1px] border-solid rounded-md bg-transparent px-4 py-4 outline-none"
+          className="w-96 h-12 resize-none border-[1px] border-gray-400 border-solid rounded-md bg-transparent px-4 py-4 outline-none"
           name="date"
           id="date"
           type="text"
@@ -48,7 +48,7 @@ const EventForm = ({ operation, selectedDate }) => {
       <div className="relative">
         <input
           className={
-            "border-[1px] border-solid px-4 w-96 h-12 rounded-sm bg-transparent transition-all duration-300 peer focus:outline-blue-400" +
+            "border-[1px] border-solid px-4 w-96 h-12 rounded-md bg-transparent transition-all duration-300 peer focus:outline-blue-400" +
             (error ? " border-red-500" : " border-gray-400")
           }
           type="text"

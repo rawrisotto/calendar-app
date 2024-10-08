@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-gray-300 grid place-items-center min-h-screen;
+    }
+
+    main {
+        @apply bg-neutral-100 px-8 py-4 rounded-lg;
+    }
+}

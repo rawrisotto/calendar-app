@@ -11,3 +11,7 @@
         @apply bg-neutral-100 px-8 py-4 rounded-lg;
     }
 }
+
+.btn {
+    @apply w-full border-[1px] py-1.5 font-semibold text-sm rounded-md transition-colors duration-300;
+}

@@ -14,7 +14,7 @@ const Events = ({ selectedDate, events }) => {
   });
 
   return (
-    <aside className="grid content-between px-4">
+    <aside className="grid content-between px-4 w-96">
       <div>
         <h2 className="text-2xl font-semibold border-b-[1px] pb-2">
           <time dateTime={format(selectedDate, "yyyy-MM-dd")}>

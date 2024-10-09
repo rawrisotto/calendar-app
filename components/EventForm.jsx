@@ -1,66 +1,29 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-const EventForm = ({ operation, selectedDate }) => {
-  const [submitting, setSubmitting] = useState(false);
-  const router = useRouter();
+const EventForm = ({ operation, event, submitting, onSubmit }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    reset,
   } = useForm();
 
-  // // const [values, setValues] = useState({ date: selectedDate, event: "" });
-  // const [values, setValues] = useState({
-  //   event: "",
-  //   startDate: selectedDate,
-  //   endDate: selectedDate,
-  //   startTime: "",
-  //   endTime: "",
-  // });
-  // const [error, setError] = useState(null);
-
-  // const handleChange = (e) => {
-  //   setValues({ ...values, [e.target.name]: e.target.value });
-  // };
-
-  // const validateEvent = (values) => {
-  //   if (!values.event) {
-  //     setError("Please enter an event");
-  //   }
-  //   return null;
-  // };
-
-  const onSubmit = async (data) => {
-    const body = {
-      title: data.title,
-      startDateTime: `${data.startDate}T${data.startTime}`,
-      endDateTime: `${data.endDate}T${data.endTime}`,
-    };
-    setSubmitting(true);
-
-    try {
-      const res = await fetch("/api/event", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+  useEffect(() => {
+    if (event && Object.keys(event).length > 0) {
+      reset({
+        title: event.title,
+        startDate: event.startDateTime.split("T")[0],
+        startTime: event.startDateTime.split("T")[1],
+        endDate: event.endDateTime.split("T")[0],
+        endTime: event.endDateTime.split("T")[1],
       });
-
-      if (res.ok) {
-        router.push("/");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setSubmitting(false);
     }
-  };
+  }, [event]);
 
   return (
     <form className="grid gap-6" onSubmit={handleSubmit(onSubmit)}>

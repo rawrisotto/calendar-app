@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import {
   add,
   eachDayOfInterval,
@@ -8,16 +5,24 @@ import {
   endOfWeek,
   format,
   isEqual,
+  isSameDay,
   isSameMonth,
   isToday,
+  isWithinInterval,
   parse,
+  parseISO,
   startOfMonth,
   startOfWeek,
 } from "date-fns";
 
-const Calendar = ({ today, selectedDate, handleDateChange }) => {
-  // Get the current month
-  const [currentMonth, setCurrentMonth] = useState(format(today, "MMMM yyyy"));
+const Calendar = ({
+  selectedDate,
+  currentMonth,
+  handleDateChange,
+  handleNextMonth,
+  handlePrevMonth,
+  events,
+}) => {
   // Get the first day of the month
   const firstDayCurrentMonth = parse(currentMonth, "MMMM yyyy", new Date());
   // Get the days in the current month
@@ -25,18 +30,6 @@ const Calendar = ({ today, selectedDate, handleDateChange }) => {
     start: startOfWeek(startOfMonth(firstDayCurrentMonth)),
     end: endOfWeek(endOfMonth(firstDayCurrentMonth)),
   });
-
-  // handleNextMonth
-  const handleNextMonth = () => {
-    const firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
-    setCurrentMonth(format(firstDayNextMonth, "MMMM yyyy"));
-  };
-
-  // handlePrevMonth
-  const handlePrevMonth = () => {
-    const firstDayPrevMonth = add(firstDayCurrentMonth, { months: -1 });
-    setCurrentMonth(format(firstDayPrevMonth, "MMMM yyyy"));
-  };
 
   return (
     <section className="w-[400px] mx-auto h-fit">
@@ -47,14 +40,20 @@ const Calendar = ({ today, selectedDate, handleDateChange }) => {
         </h2>
         <button
           type="button"
-          onClick={handlePrevMonth}
+          onClick={() => {
+            const firstDayPrevMonth = add(firstDayCurrentMonth, { months: -1 });
+            handlePrevMonth(firstDayPrevMonth);
+          }}
           className="text-gray-400 hover:text-gray-500 p-1.5 text-sm"
         >
           PREV
         </button>
         <button
           type="button"
-          onClick={handleNextMonth}
+          onClick={() => {
+            const firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
+            handleNextMonth(firstDayNextMonth);
+          }}
           className="text-gray-400 hover:text-gray-500 p-1.5 text-sm"
         >
           NEXT
@@ -73,11 +72,11 @@ const Calendar = ({ today, selectedDate, handleDateChange }) => {
       </div>
 
       {/* Days of the month */}
-      <div className="grid grid-cols-7 mt-2 text-center">
+      <div className="grid grid-cols-7 text-center">
         {days.map((day, dayIdx) => (
           <div
             key={day.toString()}
-            className={`text-gray-300 ${
+            className={`text-gray-300 py-2 ${
               dayIdx > 6 ? "border-t border-gray-200" : null
             }`}
           >
@@ -100,6 +99,16 @@ const Calendar = ({ today, selectedDate, handleDateChange }) => {
                 {format(day, "d")}
               </time>
             </button>
+            {events.some(
+              (event) =>
+                isSameDay(parseISO(event.startDateTime), day) ||
+                isWithinInterval(day, {
+                  start: parseISO(event.startDateTime),
+                  end: parseISO(event.endDateTime),
+                })
+            ) && (
+              <div className="w-1 h-1 bg-sky-400 mx-auto rounded-full"></div>
+            )}
           </div>
         ))}
       </div>

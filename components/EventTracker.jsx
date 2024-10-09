@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   isSameDay,
   parseISO,
@@ -8,46 +8,13 @@ import {
   isSameMonth,
   format,
   isWithinInterval,
-  parse,
 } from "date-fns";
 import Calendar from "./Calendar";
 import Events from "./Events";
 
-const events = [
-  {
-    id: 1,
-    title: "Learn NextJS",
-    startDateTime: "2024-10-10T10:00",
-    endDateTime: "2024-10-10T12:00",
-  },
-  {
-    id: 2,
-    title: "Learn React",
-    startDateTime: "2024-10-10T13:00",
-    endDateTime: "2024-10-10T15:00",
-  },
-  {
-    id: 3,
-    title: "Learn Docker",
-    startDateTime: "2024-10-11T13:00",
-    endDateTime: "2024-10-11T15:00",
-  },
-  {
-    id: 4,
-    title: "Learn Kubernetes",
-    startDateTime: "2024-11-11T13:00",
-    endDateTime: "2024-11-11T15:00",
-  },
-  {
-    id: 5,
-    title: "TEST",
-    startDateTime: "2024-11-11T13:00",
-    endDateTime: "2024-11-13T15:00",
-  },
-];
-
 const EventTracker = () => {
   const today = startOfToday();
+  const [events, setEvents] = useState([]);
   const [selectedDate, setSelectedDate] = useState(today);
   const [selectedMonth, setSelectedMonth] = useState(
     format(today, "MMMM yyyy")
@@ -67,6 +34,16 @@ const EventTracker = () => {
   const handlePrevMonth = (firstDayPrevMonth) => {
     setSelectedMonth(format(firstDayPrevMonth, "MMMM yyyy"));
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("/api/event");
+      const data = await res.json();
+      setEvents(data);
+    };
+
+    fetchData();
+  }, []);
 
   // Filter events based on the selected date
   const filteredEventsByDate = events.filter((event) => {

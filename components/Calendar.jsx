@@ -16,8 +16,6 @@ import {
 } from "date-fns";
 
 const Calendar = ({ today, selectedDate, handleDateChange }) => {
-  // Get the current data
-  //   const today = startOfToday();
   // Get the current month
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMMM yyyy"));
   // Get the first day of the month
@@ -41,7 +39,7 @@ const Calendar = ({ today, selectedDate, handleDateChange }) => {
   };
 
   return (
-    <section className="w-[400px] mx-auto rounded-md border-[1px] border-black h-fit">
+    <section className="w-[400px] mx-auto h-fit">
       {/* Month, Prev, Next */}
       <div className="flex items-center border-b-[1px] p-4">
         <h2 className="font-semibold text-gray-900 flex-auto">

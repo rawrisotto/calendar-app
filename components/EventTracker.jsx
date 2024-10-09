@@ -20,7 +20,7 @@ const EventTracker = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-4 divide-x-2">
       <Calendar
         today={today}
         selectedDate={selectedDate}

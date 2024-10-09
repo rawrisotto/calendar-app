@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import EventForm from "@components/EventForm";
+import Link from "next/link";
 
 const page = () => {
   const searchParams = useSearchParams();
@@ -66,7 +67,9 @@ const page = () => {
 
   return (
     <div className="w-96">
-      <h1 className="text-3xl font-bold mb-4">Calendar App</h1>
+      <Link href="/">
+        <h1 className="text-3xl font-bold mb-4">Calendar App</h1>
+      </Link>
       <EventForm
         operation={"Update"}
         event={data}

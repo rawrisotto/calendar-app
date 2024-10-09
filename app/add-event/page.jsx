@@ -1,6 +1,7 @@
 "use client";
 
 import EventForm from "@components/EventForm";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -33,12 +34,18 @@ const page = () => {
     } finally {
       setSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="w-96">
-      <h1 className="text-3xl font-bold mb-4">Calendar App</h1>
-      <EventForm operation={"Add"} submitting={submitting} onSubmit={createEvent} />
+      <Link href="/">
+        <h1 className="text-3xl font-bold mb-4">Calendar App</h1>
+      </Link>
+      <EventForm
+        operation={"Add"}
+        submitting={submitting}
+        onSubmit={createEvent}
+      />
     </div>
   );
 };

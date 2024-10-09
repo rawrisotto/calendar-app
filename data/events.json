@@ -10,17 +10,5 @@
     "startDateTime": "2024-10-13T13:20",
     "endDateTime": "2024-10-13T15:20",
     "id": "e9523ca8-f63b-4736-9e53-e4cd55ee4dc0"
-  },
-  {
-    "title": "UPDATED",
-    "startDateTime": "2024-10-10T18:21",
-    "endDateTime": "2024-10-10T20:21",
-    "id": "3aeda53c-007c-42cf-86d3-847308e7f6a3"
-  },
-  {
-    "title": "TEST",
-    "startDateTime": "2024-10-13T19:50",
-    "endDateTime": "2024-10-13T20:50",
-    "id": "80434b34-a3e3-4c3d-901d-7b466c6f8d83"
   }
 ]

@@ -47,6 +47,23 @@ const page = () => {
     }
   };
 
+  const deleteEvent = async () => {
+    setSubmitting(true);
+
+    try {
+      const res = await fetch(`/api/event/${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="w-96">
       <h1 className="text-3xl font-bold mb-4">Calendar App</h1>
@@ -55,6 +72,7 @@ const page = () => {
         event={data}
         submitting={submitting}
         onSubmit={updateEvent}
+        onDelete={deleteEvent}
       />
     </div>
   );

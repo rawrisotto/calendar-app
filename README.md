@@ -13,14 +13,14 @@ Style your own calendar according to your requirement
 
 - [x] User can create event
 - [x] User can edit event
-- [ ] User can delete event
+- [x] User can delete event
 
 ## Bonus features
 
 - [x] User can drag events between dates
 - [ ] User can set reminder for a event
 - [ ] Change theme (light/dark) (play with css), play with css 😄
-- [ ] Store data locally so that events does not get deleted when server is restarted
+- [x] Store data locally so that events does not get deleted when server is restarted
 
 ## Useful links and resources
 

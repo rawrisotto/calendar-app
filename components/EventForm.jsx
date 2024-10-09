@@ -1,10 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-const EventForm = ({ operation, event, submitting, onSubmit }) => {
+const EventForm = ({ operation, event, submitting, onSubmit, onDelete }) => {
   const {
     register,
     handleSubmit,
@@ -153,13 +152,25 @@ const EventForm = ({ operation, event, submitting, onSubmit }) => {
         </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={submitting}
-        className="btn border-blue-100 bg-blue-100 hover:bg-blue-400 hover:text-neutral-100 disabled:opacity-50"
-      >
-        {operation} Event
-      </button>
+      <div className="flex gap-2">
+        <button
+          type="submit"
+          disabled={submitting}
+          className="btn border-blue-100 bg-blue-100 hover:bg-blue-400 hover:text-neutral-100 disabled:opacity-50"
+        >
+          {operation} Event
+        </button>
+        {onDelete && (
+          <button
+            className="btn border-red-100 bg-red-100 hover:bg-red-400 hover:text-neutral-100 disabled:opacity-50"
+            type="button"
+            onClick={onDelete}
+            disabled={submitting}
+          >
+            Delete Event
+          </button>
+        )}
+      </div>
     </form>
   );
 };
